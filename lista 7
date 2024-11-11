@@ -1,0 +1,20 @@
+def find_judge(n,t):
+  confiadores=[] #lista das pessoas que confiam em alguem. Não ha problema em existir elementos repetidos
+  qnts_confiam= 0#contagem de quantas pessoas confiam em quem não confiam em ninguem
+  confiado='k' #serve para marcar quem é possivelmente confiado por todos
+  for i in t:
+    confiadores.append(i[0])
+  for j in range(n+1):
+    if j not in confiadores: #verifica se tem alguem que nao confia em ninguem
+      confiado=j
+      for i in t:
+        if i[1]==j:
+          qnts_confiam +=1 #conta quantas pessoas confiam nessa pessoa
+  if qnts_confiam==n-1:
+    return confiado
+  else:
+    return -1
+
+t = [ [ 1 , 3 ] , [ 2 , 3 ] , [ 3 , 1 ] ]
+n=3
+print(find_judge(n, t))
