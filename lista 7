@@ -1,3 +1,5 @@
+#Questão 1
+
 def find_judge(n,t):
   confiadores=[] #lista das pessoas que confiam em alguem. Não ha problema em existir elementos repetidos
   qnts_confiam= 0#contagem de quantas pessoas confiam em quem não confiam em ninguem
