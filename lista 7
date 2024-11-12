@@ -21,6 +21,76 @@ t = [ [ 1 , 3 ] , [ 2 , 3 ] , [ 3 , 1 ] ]
 n=3
 print(find_judge(n, t))
 
+#Questao 2
+#a)
+import math
+
+
+class UnionFind:
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.rank = [0] * n
+    
+    def encontrar(self, x):
+        if self.parent[x] != x:
+            self.parent[x] = self.encontrar(self.parent[x])
+        return self.parent[x]
+    
+    def uniao(self, x, y):
+        rootX = self.encontrar(x)
+        rootY = self.encontrar(y)
+        
+        if rootX != rootY:
+            if self.rank[rootX] > self.rank[rootY]:
+                self.parent[rootY] = rootX
+            elif self.rank[rootX] < self.rank[rootY]:
+                self.parent[rootX] = rootY
+            else:
+                self.parent[rootY] = rootX
+                self.rank[rootX] += 1
+            return True
+        return False
+
+def distancia(p1, p2):
+    return math.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
+
+def MST(points):
+    n = len(points)
+    edges = []
+    
+    for i in range(n):
+        for j in range(i + 1, n):
+            distance = distancia(points[i], points[j])
+            edges.append((distance, i, j))
+    
+    # Ordenação das arestas pela distância
+    edges.sort()
+    
+    uf = UnionFind(n) #evita ciclos
+    
+    mst = []
+    total_weight = 0
+
+    for weight, u, v in edges:
+        if uf.uniao(u, v):
+            mst.append((u, v, weight))
+            total_weight += weight
+    
+    return mst, total_weight
+
+if __name__ == "__main__":
+    pontos = [(0, 0), (1, 0), (0, 1), (1, 1), (2, 0)]
+    
+    mst, total_weight = MST(pontos)
+    
+    print("Minimum Spanning Tree (MST):")
+    for u, v, weight in mst:
+        print(f"Conectar ponto {pontos[u]} com ponto {pontos[v]} com peso {weight:.2f}")
+    print(f"Peso total da MST: {total_weight:.2f}")
+
+#b) como temos da ordem de n**2 arestas, ordenar elas é O(n**2log(n)). Ou seja a cota nlog(n) é uma cota inferior para esse problema
+#c) O algoritmo implementado por mim não é otimo 
+
 
 #Questão 3
 #o codigo usado para solucionar essa questao esta no github de prog2 do professor
