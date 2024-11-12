@@ -38,3 +38,17 @@ polinomio1 = VandermondeMatrix(X1,Y1)
 T=polinomio1.evaluate(700)
 print(T)
 
+#Questão 5
+from scipy.interpolate import lagrange
+import matplotlib.pyplot as plt
+
+
+class LagrangePol:
+  def __init__(self, x, y):
+    self.x = x
+    self.y = y
+
+  def polinomio(self):
+    polinomio = lagrange(self.x, self.y)
+    return polinomio
+
