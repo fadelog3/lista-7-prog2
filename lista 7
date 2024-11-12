@@ -38,6 +38,36 @@ polinomio1 = VandermondeMatrix(X1,Y1)
 T=polinomio1.evaluate(700)
 print(T)
 
+#Questão 4
+
+def newton_root(func, intervalo, erroTol: float = 1e-16, maxItr: int = 10000, eps: float = 1e-6 ):
+  x=intervalo.haf
+  for _ in range(maxItr):
+    fx = func(x)
+    if abs(fx)< erroTol:
+      return x
+    derivada=func.prime_safe(x)
+    if derivada<eps:
+      raise ValueError("Derivada muito pequena")
+    x=x-(fx/derivada)
+
+
+
+if __name__=="__main__":
+  class funcTest(RealFunction): #testando realfunction
+    f = lambda self, x : np.power(x, 2)- 1
+    prime = lambda self, x : 2*x
+    domain = Interval(-2, 2)
+
+  intervalo=Interval(-2, 0) 
+  ft = funcTest()
+  print(newton_root(ft,intervalo )) #testando metodo de newton
+
+  print(bissect(ft, intervalo)) #testanto a funcao bissect
+
+  intervalo = grid_search(ft, intervalo) #testando grid_search
+  print(intervalo)
+
 #Questão 5
 from scipy.interpolate import lagrange
 import matplotlib.pyplot as plt
