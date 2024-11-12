@@ -41,7 +41,7 @@ print(T)
 #Questão 5
 from scipy.interpolate import lagrange
 import matplotlib.pyplot as plt
-
+import time
 
 class LagrangePol:
   def __init__(self, x, y):
@@ -51,4 +51,22 @@ class LagrangePol:
   def polinomio(self):
     polinomio = lagrange(self.x, self.y)
     return polinomio
+
+#codigo para contagem de tempo da construção dos polinomios
+
+def measure_time(metodo, x, y):
+    start_time = time.time()
+    metodo(x, y)
+    end_time = time.time()
+    return end_time - start_time
+
+
+lagrange_pol = LagrangePol(X1, Y1)
+time_lagrange = measure_time(lambda x, y: lagrange_pol.polinomio(), X1, Y1)
+
+vandermondepol=VandermondeMatrix(X1,Y1)
+time_vandermonde = measure_time(lambda x, y: VandermondeMatrix(X1,Y1), X1, Y1)
+
+print(f"Tempo para o polinômio de Lagrange (scipy.interpolate.lagrange): {time_lagrange:.6f} segundos")
+print(f"Tempo para o polinômio de Vandermonde: {time_vandermonde:.6f} segundos")
 
