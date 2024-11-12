@@ -23,6 +23,8 @@ print(find_judge(n, t))
 
 
 #Questão 3
+#o codigo usado para solucionar essa questao esta no github de prog2 do professor
+#econtrei um polinomio que da a altura em funcao da temperatura e outro que faz o contrario
 
 X0=[15, 9, 5, 3, -2, -5, -15]
 Y0=[200, 400, 600, 800, 1000, 1200, 1400]
